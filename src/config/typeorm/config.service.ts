@@ -12,6 +12,8 @@ export class TypeormConfigService {
 
       synchronize: false,
 
+      dateStrings: true,
+
       entities: ['src/**/*.entity.{ts,js}'],
 
       // migration settings
