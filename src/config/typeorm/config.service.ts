@@ -1,8 +1,6 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-
-type logger = "advanced-console" | "simple-console" | "file" | "debug";
 
 @Injectable()
 export class TypeormConfigService {
@@ -14,6 +12,12 @@ export class TypeormConfigService {
 
       synchronize: false,
 
+      entities: ['src/**/*.entity.{ts,js}'],
+
+      // migration settings
+      migrations: ['src/database/migrations/**/*{.ts,.js}'],
+      migrationsTableName: 'migration',
+
       // .env settings
       type: this.type as 'mysql' | 'mariadb',
       host: this.host,
@@ -21,13 +25,6 @@ export class TypeormConfigService {
       username: this.username,
       password: this.password,
       database: this.database,
-      entities: this.entities,
-      logging: this.logging,
-      logger: this.logger,
-
-      // migration settings
-      migrationsTableName: 'migration',
-      migrations: ['dist/database/migration/**/*{.ts,.js}'],
     };
   }
 
@@ -53,17 +50,5 @@ export class TypeormConfigService {
 
   get database(): string {
     return this.configService.get<string>('typeorm.database');
-  }
-
-  get entities(): string[] {
-    return [this.configService.get<string>('typeorm.entities')];
-  }
-
-  get logging(): boolean {
-    return this.configService.get<string>('typeorm.logging') === 'true';
-  }
-
-  get logger(): logger {
-    return this.configService.get<logger>('typeorm.logger');
   }
 }
