@@ -8,4 +8,8 @@ export class AppConfigService {
   get port(): number {
     return this.configService.get<number>('app.port');
   }
+
+  get url(): string {
+    return this.configService.get<string>('app.url');
+  }
 }

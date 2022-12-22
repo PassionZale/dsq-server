@@ -10,7 +10,8 @@ import { AppConfigService } from './config.service';
       ignoreEnvFile: process.env.NODE_ENV === 'production' ? true : false,
       load: [configuration],
       validationSchema: Joi.object({
-        APP_PORT: Joi.number().default(3000),
+        APP_PORT: Joi.number().default(3300),
+        APP_URL: Joi.string().default('http://localhost:3300'),
       }),
     }),
   ],
