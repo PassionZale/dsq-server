@@ -2,17 +2,17 @@ export enum UserStatus {
   /**
    * 活跃
    */
-  ACTIVED = 'actived',
+  ACTIVED = 'ACTIVED',
   /**
    * 冻结
    */
-  FORZEN = 'forzen',
+  FORZEN = 'FORZEN',
   /**
    * 待激活
    */
-  INACTIVATED = 'inactivated',
+  INACTIVATED = 'INACTIVATED',
   /**
    * 离职
    */
-  LOSED = 'losed',
+  LOSED = 'LOSED',
 }

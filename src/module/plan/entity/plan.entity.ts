@@ -15,12 +15,16 @@ export class PlanEntity {
   @Column('text')
   desc: string;
 
+  // 迭代文档
+  @Column('text')
+  doc: string;
+
   // 优先级
   @Column('enum', {
     enum: [PlanLevel.URGENT, PlanLevel.HIGH, PlanLevel.MIDDLE, PlanLevel.LOW],
     default: PlanLevel.LOW,
   })
-  level: number;
+  level: PlanLevel;
 
   // 状态
   @Column('enum', {
@@ -33,21 +37,17 @@ export class PlanEntity {
     ],
     default: PlanStatus.NOT_START,
   })
-  status: number;
-
-  // 迭代文档
-  @Column('text')
-  doc: string;
+  status: PlanStatus;
 
   // 终审时间
-  @Column('timestamp', { nullable: true })
+  @Column('datetime', { nullable: true })
   review_at: Date;
 
   // 提测时间
-  @Column('timestamp', { nullable: true })
+  @Column('datetime', { nullable: true })
   test_at: Date;
 
   // 上线时间
-  @Column('timestamp', { nullable: true })
+  @Column('datetime', { nullable: true })
   release_at: Date;
 }

@@ -28,7 +28,10 @@ export class UserEntity {
   hashed_password?: string;
 
   // 角色
-  @Column('int', { default: UserRole.STAFF })
+  @Column('enum', {
+    enum: [UserRole.ADMINISTRATOR, UserRole.DEVELOPER, UserRole.STAFF],
+    default: UserRole.STAFF,
+  })
   role: UserRole;
 
   // 状态
@@ -44,10 +47,10 @@ export class UserEntity {
   status: UserStatus;
 
   // 创建时间
-  @Column('timestamp', { default: () => 'CURRENT_TIMESTAMP' })
+  @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   // 更新时间
-  @Column('timestamp', { onUpdate: 'CURRENT_TIMESTAMP', nullable: true })
+  @Column('datetime', { onUpdate: 'CURRENT_TIMESTAMP', nullable: true })
   updated_at: Date;
 }
