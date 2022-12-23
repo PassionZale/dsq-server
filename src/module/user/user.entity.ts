@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { UserRole } from '@src/common/enum/user-role.enum';
-import { UserStatus } from '@src/common/enum/user-status.enum';
-import { MediaPathTransformer } from '@src/database/database.transformer';
+import { UserRole } from '@/common/enum/user-role.enum';
+import { UserStatus } from '@/common/enum/user-status.enum';
+import { MediaPathTransformer } from '@/database/database.transformer';
 
 @Entity('user')
 export class UserEntity {
@@ -10,7 +10,7 @@ export class UserEntity {
 
   // 头像
   @Column('varchar', {
-    default: () => 'media/icons/avatar.jpg',
+    default: 'media/icons/avatar.jpg',
     transformer: new MediaPathTransformer(),
   })
   avatar: string;
