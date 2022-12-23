@@ -20,6 +20,7 @@ export class CreateUserTable1671782733564 implements MigrationInterface {
           {
             name: 'avatar',
             type: 'varchar',
+            // 需要使用模板字符包裹 string，否则 sql 会报错，其他 default 同理
             default: `'media/icons/avatar.jpg'`,
             comment: '头像',
           },
@@ -43,6 +44,9 @@ export class CreateUserTable1671782733564 implements MigrationInterface {
           },
           {
             name: 'role',
+            // 判断权限使用的是最基本的 RBAC0
+            // user.role > role 权限不足
+            // 所以此处使用 int 来完成这个效果
             type: 'int',
             default: `'${UserRole.STAFF}'`,
             comment: '角色',
