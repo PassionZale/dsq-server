@@ -15,4 +15,8 @@ export class UserService {
     this.userRepository.create(createUserDto);
     return this.userRepository.save(createUserDto);
   }
+
+  findAll() {
+    return this.userRepository.find();
+  }
 }
