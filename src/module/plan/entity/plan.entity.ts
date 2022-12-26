@@ -1,5 +1,5 @@
 import { PlanStatus } from '@/common/enum/plan-status.enum';
-import { PlanLevel } from '@/common/enum/priority-level.enum';
+import { PlanLevel } from '@/common/enum/plan-level.enum';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('plan')
