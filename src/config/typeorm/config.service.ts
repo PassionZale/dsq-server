@@ -14,10 +14,10 @@ export class TypeormConfigService {
 
       dateStrings: true,
 
-      entities: ['src/**/*.entity.{ts,js}'],
+      entities: ['dist/**/*.entity.{ts,js}'],
 
       // migration settings
-      migrations: ['src/database/migrations/**/*{.ts,.js}'],
+      migrations: ['dist/database/migrations/**/*{.ts,.js}'],
       migrationsTableName: 'migration',
 
       // .env settings
