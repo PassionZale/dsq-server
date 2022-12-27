@@ -1,0 +1,41 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserEntity {
+  id: ID!
+  avatar: String!
+  fullname: String!
+  job_number: Float!
+  hashed_password: String!
+  role: Float!
+  status: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  users(offset: Int! = 0, limit: Int! = 25): [UserEntity!]!
+  user(id: Float!): UserEntity!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserDto!): UserEntity!
+  updateUser(id: Float!, updateUserInput: UpdateUserDto!): UserEntity!
+  removeUser(id: Float!): UserEntity!
+}
+
+input CreateUserDto {
+  fullname: String!
+  job_number: Float!
+}
+
+input UpdateUserDto {
+  fullname: String
+  job_number: Float
+}

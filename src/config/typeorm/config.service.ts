@@ -14,6 +14,8 @@ export class TypeormConfigService {
 
       dateStrings: true,
 
+      autoLoadEntities: true,
+
       entities: ['dist/**/*.entity.{ts,js}'],
 
       // migration settings

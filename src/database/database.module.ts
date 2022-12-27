@@ -9,9 +9,7 @@ import { TypeormConfigModule } from '@/config/typeorm/config.module';
       imports: [TypeormConfigModule],
       inject: [TypeormConfigService],
       useFactory: (typeormConfigService: TypeormConfigService) => {
-        const configs = typeormConfigService.configs;
-
-        return { ...configs };
+        return typeormConfigService.configs;
       },
     }),
   ],
