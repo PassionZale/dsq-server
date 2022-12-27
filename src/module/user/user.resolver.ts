@@ -26,17 +26,17 @@ export class UserResolver {
 
   @Mutation(() => UserEntity)
   public async createUser(
-    @Args('createUserInput') createUserInput: CreateUserDto,
+    @Args('createUserDto') createUserDto: CreateUserDto,
   ): Promise<UserEntity> {
-    return await this.userService.create(createUserInput);
+    return await this.userService.create(createUserDto);
   }
 
   @Mutation(() => UserEntity)
   public async updateUser(
     @Args('id') id: number,
-    @Args('updateUserInput') updateUserInput: UpdateUserDto,
+    @Args('updateUserDto') updateUserDto: UpdateUserDto,
   ): Promise<UserEntity> {
-    return await this.userService.update(id, updateUserInput);
+    return await this.userService.update(id, updateUserDto);
   }
 
   @Mutation(() => UserEntity)
