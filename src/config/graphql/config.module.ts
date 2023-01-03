@@ -8,6 +8,8 @@ export class GraphqlOptions implements GqlOptionsFactory {
     return {
       autoSchemaFile: 'src/schema.gql',
       installSubscriptionHandlers: true,
+      debug: false,
+      playground: true,
     };
   }
 }
