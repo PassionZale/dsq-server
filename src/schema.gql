@@ -7,11 +7,11 @@ type UserEntity {
   avatar: String!
   fullname: String!
   job_number: Float!
-  hashed_password: String!
+  hashed_password: String
   role: Float!
   status: String!
   created_at: DateTime!
-  updated_at: DateTime!
+  updated_at: DateTime
 }
 
 """
@@ -20,22 +20,22 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
-  users(offset: Int! = 0, limit: Int! = 25): [UserEntity!]!
   user(id: Float!): UserEntity!
+  users: [UserEntity!]!
 }
 
 type Mutation {
-  createUser(createUserDto: CreateUserDto!): UserEntity!
-  updateUser(id: Float!, updateUserDto: UpdateUserDto!): UserEntity!
+  createUser(createUserInput: CreateUserInput!): UserEntity!
   removeUser(id: Float!): UserEntity!
+  updateUser(id: Float!, updateUserInput: UpdateUserInput!): UserEntity!
 }
 
-input CreateUserDto {
+input CreateUserInput {
   fullname: String!
   job_number: Float!
 }
 
-input UpdateUserDto {
+input UpdateUserInput {
   fullname: String
   job_number: Float
 }

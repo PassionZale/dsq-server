@@ -60,7 +60,7 @@ export class CreateUserTable1671782733564 implements MigrationInterface {
               UserStatus.INACTIVATED,
               UserStatus.LOSED,
             ],
-            default: `'${UserStatus.ACTIVED}'`,
+            default: `'${UserStatus.INACTIVATED}'`,
             comment: '用户状态',
           },
           {

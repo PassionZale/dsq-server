@@ -30,7 +30,7 @@ export class UserEntity {
   job_number: number;
 
   // 密码：登录密码
-  @Field()
+  @Field({ nullable: true })
   @Column('varchar', { select: false, nullable: true })
   hashed_password?: string;
 
@@ -61,7 +61,7 @@ export class UserEntity {
   created_at: Date;
 
   // 更新时间
-  @Field()
+  @Field({ nullable: true })
   @Column('datetime', { onUpdate: 'CURRENT_TIMESTAMP', nullable: true })
   updated_at: Date;
 }

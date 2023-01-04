@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { IsNumber, IsString, MaxLength } from 'class-validator';
 
 @InputType()
-export class CreateUserDto {
+export class CreateUserInput {
   @Field()
   @IsString()
   @MaxLength(20)

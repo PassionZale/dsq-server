@@ -1,10 +1,9 @@
-import { Pagination } from '@/common/interface/pagination';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserInputError } from 'apollo-server-express';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/request/create-user.request.dto';
-import { UpdateUserDto } from './dto/request/update-user.request.dto';
+import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
 import { UserEntity } from './user.entity';
 
 @Injectable()
@@ -14,37 +13,27 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  public async findAll(pagination: Pagination): Promise<UserEntity[]> {
-    const { limit, offset } = pagination;
-    return this.userRepository.find({
-      skip: offset,
-      take: limit,
-    });
+  public async findAll(): Promise<UserEntity[]> {
+    return await this.userRepository.find();
   }
 
-  public async findOneById(id: number): Promise<UserEntity> {
-    const user = await this.userRepository.findOne({ where: { id } });
-
-    if (!user) {
-      throw new UserInputError(`User #${id} not found`);
-    }
-
-    return user;
+  public async findOne(id: number): Promise<UserEntity> {
+    return await this.userRepository.findOneOrFail({ where: { id } });
   }
 
-  public async create(createUserDto: CreateUserDto): Promise<UserEntity> {
-    const user = this.userRepository.create({ ...createUserDto });
+  public async create(createUserInput: CreateUserInput): Promise<UserEntity> {
+    const user = this.userRepository.create({ ...createUserInput });
 
     return this.userRepository.save(user);
   }
 
   public async update(
     id: number,
-    updateUserDto: UpdateUserDto,
+    updateUserInput: UpdateUserInput,
   ): Promise<UserEntity> {
     const user = await this.userRepository.preload({
       id,
-      ...updateUserDto,
+      ...updateUserInput,
     });
 
     if (!user) {
@@ -54,7 +43,7 @@ export class UserService {
   }
 
   public async remove(id: number): Promise<any> {
-    const user = await this.findOneById(id);
+    const user = await this.findOne(id);
     return this.userRepository.remove(user);
   }
 }
