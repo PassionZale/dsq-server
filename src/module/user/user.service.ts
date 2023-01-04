@@ -13,18 +13,15 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  public async findAll(): Promise<UserEntity[]> {
-    return await this.userRepository.find();
-  }
-
-  public async findOne(id: number): Promise<UserEntity> {
-    return await this.userRepository.findOneOrFail({ where: { id } });
-  }
-
   public async create(createUserInput: CreateUserInput): Promise<UserEntity> {
     const user = this.userRepository.create({ ...createUserInput });
 
     return this.userRepository.save(user);
+  }
+
+  public async remove(id: number): Promise<any> {
+    const user = await this.findOne(id);
+    return this.userRepository.remove(user);
   }
 
   public async update(
@@ -42,8 +39,11 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  public async remove(id: number): Promise<any> {
-    const user = await this.findOne(id);
-    return this.userRepository.remove(user);
+  public async findAll(): Promise<UserEntity[]> {
+    return await this.userRepository.find();
+  }
+
+  public async findOne(id: number): Promise<UserEntity> {
+    return await this.userRepository.findOneOrFail({ where: { id } });
   }
 }

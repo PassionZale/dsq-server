@@ -10,6 +10,7 @@ import { DatabaseModule } from './database/database.module';
 
 // MODULE
 import { UserModule } from './module/user/user.module';
+import { PlanModule } from './module/plan/plan.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UserModule } from './module/user/user.module';
     DatabaseModule,
 
     UserModule,
+    PlanModule,
   ],
   controllers: [],
   providers: [],
