@@ -27,7 +27,6 @@ export class CreatePlanUserTable1671782749019 implements MigrationInterface {
           {
             name: 'user_type',
             type: 'enum',
-            isNullable: true,
             enum: [
               PlanUserType.OWNER,
               PlanUserType.FRONTEND_DEVELOPER,

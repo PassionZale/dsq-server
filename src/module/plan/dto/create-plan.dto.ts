@@ -22,8 +22,7 @@ export class PlanUserDTO {
     PlanUserType.TEST_DEVELOPER,
     PlanUserType.PROJECT_MANAGER,
   ])
-  @IsOptional()
-  readonly user_type?: PlanUserType;
+  readonly user_type: PlanUserType;
 }
 
 export class CreatePlanDTO {

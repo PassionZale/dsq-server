@@ -3,11 +3,11 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 
-@Controller()
+@Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('user')
+  @Post()
   public async create(
     @Body() createUserDTO: CreateUserDTO,
   ): Promise<UserEntity> {

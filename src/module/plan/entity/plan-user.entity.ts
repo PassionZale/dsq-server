@@ -23,7 +23,6 @@ export class PlanUserEntity {
       PlanUserType.TEST_DEVELOPER,
       PlanUserType.PROJECT_MANAGER,
     ],
-    nullable: true,
   })
-  user_type: PlanUserType | null;
+  user_type: PlanUserType;
 }
