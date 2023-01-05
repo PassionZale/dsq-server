@@ -3,9 +3,9 @@ import { ValidationError } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { AppConfigService } from './config/app/config.service';
 import { ApiException } from './filter/api-exception.filter';
-import { TransformInterceptor } from './interceptor/transform.interceptor';
 import { AnyExceptionFilter } from './filter/any-exception.filter';
 import { HttpExceptionFilter } from './filter/http-exception.filter';
+import { TransformInterceptor } from './interceptor/transform.interceptor';
 import { ApiValidationPipe } from './pipe/api-validation.pipe';
 
 async function bootstrap() {
