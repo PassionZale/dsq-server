@@ -1,14 +1,10 @@
-import { Field, InputType } from '@nestjs/graphql';
 import { IsNumber, IsString, MaxLength } from 'class-validator';
 
-@InputType()
-export class CreateUserInput {
-  @Field()
+export class CreateUserDTO {
   @IsString()
   @MaxLength(20)
   readonly fullname: string;
 
-  @Field()
   @IsNumber()
   readonly job_number: number;
 }

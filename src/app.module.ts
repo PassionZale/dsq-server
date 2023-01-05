@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 // CONFIG
 import { AppConfigModule } from './config/app/config.module';
 import { TypeormConfigModule } from './config/typeorm/config.module';
-import { GraphqlModule } from './config/graphql/config.module';
 
 // DATABASE
 import { DatabaseModule } from './database/database.module';
@@ -17,7 +16,6 @@ import { PlanModule } from './module/plan/plan.module';
     AppConfigModule,
     TypeormConfigModule,
 
-    GraphqlModule,
     DatabaseModule,
 
     UserModule,

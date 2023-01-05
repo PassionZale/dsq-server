@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserInputError } from 'apollo-server-express';
 import { Repository } from 'typeorm';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
+import { CreateUserDTO } from './dto/create-user.dto';
 import { UserEntity } from './user.entity';
 
 @Injectable()
@@ -13,8 +11,8 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
-  public async create(createUserInput: CreateUserInput): Promise<UserEntity> {
-    const user = this.userRepository.create({ ...createUserInput });
+  public async create(createUserDTO: CreateUserDTO): Promise<UserEntity> {
+    const user = this.userRepository.create({ ...createUserDTO });
 
     return this.userRepository.save(user);
   }
@@ -26,15 +24,15 @@ export class UserService {
 
   public async update(
     id: number,
-    updateUserInput: UpdateUserInput,
+    updateUserDTO: CreateUserDTO,
   ): Promise<UserEntity> {
     const user = await this.userRepository.preload({
       id,
-      ...updateUserInput,
+      ...updateUserDTO,
     });
 
     if (!user) {
-      throw new UserInputError(`User #${id} not found`);
+      throw new Error(`User #${id} not found`);
     }
     return this.userRepository.save(user);
   }
