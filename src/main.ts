@@ -1,19 +1,21 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe, ValidationError } from '@nestjs/common';
+import { ValidationError } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { AppConfigService } from './config/app/config.service';
 import { ApiException } from './filter/api-exception.filter';
 import { TransformInterceptor } from './interceptor/transform.interceptor';
 import { AnyExceptionFilter } from './filter/any-exception.filter';
 import { HttpExceptionFilter } from './filter/http-exception.filter';
+import { ApiValidationPipe } from './pipe/api-validation.pipe';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // 全局管道验证
   app.useGlobalPipes(
-    new ValidationPipe({
+    new ApiValidationPipe({
       transform: true,
+      whitelist: true,
       transformOptions: { enableImplicitConversion: true },
       validationError: { target: false },
       exceptionFactory: (errors: ValidationError[]) =>
