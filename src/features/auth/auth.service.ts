@@ -67,10 +67,6 @@ export class AuthService {
   }
 
   public async activateUser(activateUserDTO: ActivateUserDTO) {
-    // 找不到人 报错
-    // 不为待激活状态 报错
-    // 已激活 报错
-    // 激活并hash 密码
     const { referral_code, job_number, password } = activateUserDTO;
 
     const user = await this.userService.findOneWhere({
