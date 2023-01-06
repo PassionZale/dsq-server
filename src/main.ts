@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationError } from '@nestjs/common';
 import { AppModule } from './app.module';
-import { AppConfigService } from './config/app/config.service';
+import { AppConfigService } from './configs/app/config.service';
 import { ApiException } from './filter/api-exception.filter';
 import { AnyExceptionFilter } from './filter/any-exception.filter';
 import { HttpExceptionFilter } from './filter/http-exception.filter';

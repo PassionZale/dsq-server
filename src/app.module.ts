@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 
 // CONFIG
-import { AppConfigModule } from './config/app/config.module';
-import { TypeormConfigModule } from './config/typeorm/config.module';
+import { AppConfigModule } from './configs/app/config.module';
+import { TypeormConfigModule } from './configs/typeorm/config.module';
 
 // DATABASE
 import { DatabaseModule } from './database/database.module';
