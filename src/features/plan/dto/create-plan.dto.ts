@@ -7,9 +7,9 @@ import {
   IsNumber,
   ValidateNested,
 } from 'class-validator';
-import { PlanStatus } from '@/common/enum/plan-status.enum';
-import { PlanLevel } from '@/common/enum/plan-level.enum';
-import { PlanUserType } from '@/common/enum/plan-user-type.enum';
+import { PlanStatus } from '@/common/enums/plan-status.enum';
+import { PlanLevel } from '@/common/enums/plan-level.enum';
+import { PlanUserType } from '@/common/enums/plan-user-type.enum';
 
 export class PlanUserDTO {
   @IsNumber()

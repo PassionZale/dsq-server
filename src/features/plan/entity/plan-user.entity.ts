@@ -1,4 +1,4 @@
-import { PlanUserType } from '@/common/enum/plan-user-type.enum';
+import { PlanUserType } from '@/common/enums/plan-user-type.enum';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('plan_user')

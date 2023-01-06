@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { UserRole } from '@/common/enum/user-role.enum';
-import { UserStatus } from '@/common/enum/user-status.enum';
+import { UserRole } from '@/common/enums/user-role.enum';
+import { UserStatus } from '@/common/enums/user-status.enum';
 import { MediaPathTransformer } from '@/database/database.transformer';
 
 @Entity('user')

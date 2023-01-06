@@ -1,5 +1,5 @@
-import { PlanStatus } from '@/common/enum/plan-status.enum';
-import { PlanLevel } from '@/common/enum/plan-level.enum';
+import { PlanStatus } from '@/common/enums/plan-status.enum';
+import { PlanLevel } from '@/common/enums/plan-level.enum';
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreatePlanTable1671782742327 implements MigrationInterface {

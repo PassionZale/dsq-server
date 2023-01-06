@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { ApiErrorCode } from '@/common/enum/api-error-code.enum';
-import { DEFAULT_FAIL_MESSAGE } from '@/common/constant/text.constant';
-import { IBaseResponse } from '@/common/interface/base-response.interface';
+import { ApiErrorCode } from '@/common/enums/api-error-code.enum';
+import { DEFAULT_FAIL_MESSAGE } from '@/common/constants/text.constant';
+import { IBaseResponse } from '@/common/interfaces/base-response.interface';
 
 /**
  * 在业务中抛出异常，例如：

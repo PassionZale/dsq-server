@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common';
-import { DEFAULT_SUCCESS_MESSAGE } from '@/common/constant/text.constant';
-import { IBaseResponse } from '@/common/interface/base-response.interface';
+import { DEFAULT_SUCCESS_MESSAGE } from '@/common/constants/text.constant';
+import { IBaseResponse } from '@/common/interfaces/base-response.interface';
 
 export class ApiResponse implements IBaseResponse {
   code: number;

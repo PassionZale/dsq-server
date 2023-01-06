@@ -8,8 +8,8 @@ import { TypeormConfigModule } from './configs/typeorm/config.module';
 import { DatabaseModule } from './database/database.module';
 
 // MODULE
-import { UserModule } from './module/user/user.module';
-import { PlanModule } from './module/plan/plan.module';
+import { UserModule } from './features/user/user.module';
+import { PlanModule } from './features/plan/plan.module';
 
 @Module({
   imports: [

@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
-import { UserRole } from '@/common/enum/user-role.enum';
-import { UserStatus } from '@/common/enum/user-status.enum';
+import { UserRole } from '@/common/enums/user-role.enum';
+import { UserStatus } from '@/common/enums/user-status.enum';
 
 export class CreateUserTable1671782733564 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

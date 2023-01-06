@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { IBaseResponse } from '@/common/interface/base-response.interface';
-import { ApiResponse } from '@/filter/api-response.filter';
+import { IBaseResponse } from '@/common/interfaces/base-response.interface';
+import { ApiResponse } from '@/core/filters/api-response.filter';
 
 /**
  * 实用 ApiResponse 格式化响应数据结构

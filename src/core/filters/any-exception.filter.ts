@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ApiResponse } from './api-response.filter';
-import { DEFAULT_FAIL_MESSAGE } from '@/common/constant/text.constant';
+import { DEFAULT_FAIL_MESSAGE } from '@/common/constants/text.constant';
 
 /**
  * 未做任何捕获的异常，最终会被改过滤器处理，并抛出一个 ApiResponse
