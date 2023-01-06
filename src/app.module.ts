@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 // CONFIG
 import { AppConfigModule } from './configs/app/config.module';
+import { JwtConfigModule } from './configs/jwt/config.module';
 import { TypeormConfigModule } from './configs/typeorm/config.module';
 
 // DATABASE
@@ -14,6 +15,7 @@ import { PlanModule } from './features/plan/plan.module';
 @Module({
   imports: [
     AppConfigModule,
+    JwtConfigModule,
     TypeormConfigModule,
 
     DatabaseModule,
