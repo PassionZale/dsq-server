@@ -78,17 +78,21 @@ export class AuthService {
       referral_code,
     });
 
-    if (user.status === UserStatus.ACTIVED) {
-      throw new ApiException('请不要重复激活');
+    if (user) {
+      if (user.status === UserStatus.ACTIVED) {
+        throw new ApiException('请不要重复激活');
+      }
+
+      if (user.status !== UserStatus.INACTIVATED) {
+        throw new ApiException('账户无法激活');
+      }
+
+      user.hashed_password = encrypt(password);
+      user.status = UserStatus.ACTIVED;
+
+      return this.userService.update(user.id, user);
     }
 
-    if (user.status !== UserStatus.INACTIVATED) {
-      throw new ApiException('账户无法激活');
-    }
-
-    user.hashed_password = encrypt(password);
-    user.status = UserStatus.ACTIVED;
-
-    return this.userService.update(user.id, user);
+    throw new ApiException('激活失败');
   }
 }
