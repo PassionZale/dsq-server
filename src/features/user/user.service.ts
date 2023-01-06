@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
+import { generateReferralCode } from '@/common/helpers/referral-code.helper';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UserEntity } from './user.entity';
+import { ApiException } from '@/core/filters/api-exception.filter';
 
 @Injectable()
 export class UserService {
@@ -14,6 +16,8 @@ export class UserService {
   public async create(createUserDTO: CreateUserDTO): Promise<UserEntity> {
     const user = this.userRepository.create({ ...createUserDTO });
 
+    user.referral_code = generateReferralCode();
+
     return this.userRepository.save(user);
   }
 
@@ -24,7 +28,7 @@ export class UserService {
 
   public async update(
     id: number,
-    updateUserDTO: CreateUserDTO,
+    updateUserDTO?: UserEntity,
   ): Promise<UserEntity> {
     const user = await this.userRepository.preload({
       id,
@@ -32,7 +36,7 @@ export class UserService {
     });
 
     if (!user) {
-      throw new Error(`User #${id} not found`);
+      throw new ApiException('账户不存在');
     }
     return this.userRepository.save(user);
   }
@@ -43,5 +47,20 @@ export class UserService {
 
   public async findOne(id: number): Promise<UserEntity> {
     return await this.userRepository.findOneOrFail({ where: { id } });
+  }
+
+  public async findOneWhere(
+    condition: FindOptionsWhere<UserEntity>,
+    withUnSelect = false,
+  ): Promise<UserEntity> {
+    const db = this.userRepository.createQueryBuilder('user').where(condition);
+
+    if (withUnSelect) {
+      db.addSelect('user.hashed_password');
+    }
+
+    const user = await db.getOne();
+
+    return user;
   }
 }

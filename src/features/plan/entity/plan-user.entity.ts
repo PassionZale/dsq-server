@@ -16,13 +16,7 @@ export class PlanUserEntity {
 
   // 用户类型
   @Column('enum', {
-    enum: [
-      PlanUserType.OWNER,
-      PlanUserType.FRONTEND_DEVELOPER,
-      PlanUserType.BACKEND_DEVELOPER,
-      PlanUserType.TEST_DEVELOPER,
-      PlanUserType.PROJECT_MANAGER,
-    ],
+    enum: PlanUserType,
   })
   user_type: PlanUserType;
 }

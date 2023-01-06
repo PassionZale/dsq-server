@@ -9,8 +9,9 @@ import { TypeormConfigModule } from './configs/typeorm/config.module';
 import { DatabaseModule } from './database/database.module';
 
 // MODULE
-import { UserModule } from './features/user/user.module';
+import { AuthModule } from './features/auth/auth.module';
 import { PlanModule } from './features/plan/plan.module';
+import { UserModule } from './features/user/user.module';
 
 @Module({
   imports: [
@@ -20,8 +21,9 @@ import { PlanModule } from './features/plan/plan.module';
 
     DatabaseModule,
 
-    UserModule,
+    AuthModule,
     PlanModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],

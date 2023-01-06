@@ -64,6 +64,12 @@ export class CreateUserTable1671782733564 implements MigrationInterface {
             comment: '用户状态',
           },
           {
+            name: 'referral_code',
+            type: 'char',
+            length: '36',
+            comment: '推荐码(用于激活并初始化密码)',
+          },
+          {
             name: 'created_at',
             type: 'datetime',
             default: 'CURRENT_TIMESTAMP',

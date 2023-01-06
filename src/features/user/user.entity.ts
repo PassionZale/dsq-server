@@ -29,22 +29,21 @@ export class UserEntity {
 
   // 角色
   @Column('enum', {
-    enum: [UserRole.ADMINISTRATOR, UserRole.DEVELOPER, UserRole.STAFF],
+    enum: UserRole,
     default: UserRole.STAFF,
   })
   role: UserRole;
 
   // 状态
   @Column('enum', {
-    enum: [
-      UserStatus.ACTIVED,
-      UserStatus.FORZEN,
-      UserStatus.INACTIVATED,
-      UserStatus.LOSED,
-    ],
+    enum: UserStatus,
     default: UserStatus.INACTIVATED,
   })
   status: UserStatus;
+
+  // 推荐码(用于激活并初始化密码)
+  @Column('char', { length: 36 })
+  referral_code: string;
 
   // 创建时间
   @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })

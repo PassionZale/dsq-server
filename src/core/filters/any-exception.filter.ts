@@ -23,6 +23,8 @@ export class AnyExceptionFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    console.error(exception);
+
     const apiRes = new ApiResponse(null, DEFAULT_FAIL_MESSAGE, status);
 
     response.status(status).json({

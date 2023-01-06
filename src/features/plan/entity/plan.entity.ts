@@ -21,20 +21,14 @@ export class PlanEntity {
 
   // 优先级
   @Column('enum', {
-    enum: [PlanLevel.URGENT, PlanLevel.HIGH, PlanLevel.MIDDLE, PlanLevel.LOW],
+    enum: PlanLevel,
     default: PlanLevel.LOW,
   })
   level: PlanLevel;
 
   // 状态
   @Column('enum', {
-    enum: [
-      PlanStatus.NOT_START,
-      PlanStatus.REVIWEING,
-      PlanStatus.DEVELOPING,
-      PlanStatus.TESTING,
-      PlanStatus.RELEASED,
-    ],
+    enum: PlanStatus,
     default: PlanStatus.NOT_START,
   })
   status: PlanStatus;
