@@ -5,15 +5,9 @@ import {
   IsDateString,
   IsOptional,
   IsNumber,
-  ValidateNested,
 } from 'class-validator';
 import { PlanStatus } from '@/common/enums/plan-status.enum';
 import { PlanLevel } from '@/common/enums/plan-level.enum';
-
-export class PlanUserDTO {
-  @IsNumber()
-  readonly user_id: number;
-}
 
 export class CreatePlanDTO {
   @IsString()
@@ -52,7 +46,6 @@ export class CreatePlanDTO {
   @IsOptional()
   readonly release_at?: Date;
 
-  @ValidateNested({ each: true })
-  @IsOptional()
-  readonly users: PlanUserDTO[];
+  @IsNumber({}, { each: true })
+  readonly users: number[];
 }

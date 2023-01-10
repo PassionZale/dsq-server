@@ -1,6 +1,7 @@
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+
 import { PlanStatus } from '@/common/enums/plan-status.enum';
 import { PlanLevel } from '@/common/enums/plan-level.enum';
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreatePlanTable1671782742327 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

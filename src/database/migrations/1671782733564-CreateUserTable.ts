@@ -1,4 +1,5 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+
 import { UserRole } from '@/common/enums/user-role.enum';
 import { UserStatus } from '@/common/enums/user-status.enum';
 import { UserType } from '@/common/enums/user-type.enum';
@@ -44,8 +45,10 @@ export class CreateUserTable1671782733564 implements MigrationInterface {
           },
           {
             name: 'role',
-            type: 'enum',
-            enum: [UserRole.ADMINISTRATOR, UserRole.DEVELOPER, UserRole.STAFF],
+            // 判断权限使用的是最基本的 RBAC0
+            // user.role > role 权限不足
+            // 所以此处使用 int 来完成这个效果
+            type: 'int',
             default: `'${UserRole.STAFF}'`,
             comment: '角色',
           },

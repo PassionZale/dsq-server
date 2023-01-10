@@ -1,5 +1,6 @@
-import { ValidatorOptions } from '@nestjs/common/interfaces/external/validator-options.interface';
 import { SetMetadata, CustomDecorator } from '@nestjs/common';
+import { ValidatorOptions } from '@nestjs/common/interfaces/external/validator-options.interface';
+
 import { REWRITE_VALIDATOR_OPTIONS } from '@/common/constants/meta.constant';
 
 /**

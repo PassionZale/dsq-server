@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { ApiErrorCode } from '@/common/enums/api-error-code.enum';
+
 import { DEFAULT_FAIL_MESSAGE } from '@/common/constants/text.constant';
+import { ApiErrorCode } from '@/common/enums/api-error-code.enum';
 import { IBaseResponse } from '@/common/interfaces/base-response.interface';
 
 /**

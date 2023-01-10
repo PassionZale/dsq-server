@@ -1,4 +1,6 @@
 import { Body, Controller, Param, Post } from '@nestjs/common';
+
+import { PublicApi } from '@/core/decorators/public-api.decorator';
 import { AuthService } from './auth.service';
 import { ActivateDto } from './dto/activate.dto';
 import { LoginDTO } from './dto/login.dto';
@@ -8,6 +10,7 @@ import { IJwtAccessToken } from './interface';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @PublicApi()
   @Post('/login')
   public async login(@Body() loginDTO: LoginDTO): Promise<IJwtAccessToken> {
     const user = await this.authService.validateUserPassword(loginDTO);
@@ -15,6 +18,7 @@ export class AuthController {
     return this.authService.createAccessToken(user);
   }
 
+  @PublicApi()
   @Post('/activate/:referral_code')
   public async activate(
     @Param('referral_code') referral_code: string,

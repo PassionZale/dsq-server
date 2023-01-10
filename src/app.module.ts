@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 
 // CONFIG
 import { AppConfigModule } from './configs/app/config.module';
 import { JwtConfigModule } from './configs/jwt/config.module';
 import { TypeormConfigModule } from './configs/typeorm/config.module';
+import { JwtAuthGuard } from './core/guard/jwt-auth.guard';
+import { RoleGuard } from './core/guard/role.guard';
 
 // DATABASE
 import { DatabaseModule } from './database/database.module';
@@ -26,6 +29,17 @@ import { UserModule } from './features/user/user.module';
     UserModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    // 全局 JwtAuthGuard 守卫
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    // 全局 RoleGuard 守卫
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
+    },
+  ],
 })
 export class AppModule {}

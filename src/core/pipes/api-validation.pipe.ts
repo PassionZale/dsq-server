@@ -1,6 +1,7 @@
 import { ValidationPipe, ArgumentMetadata, Injectable } from '@nestjs/common';
-import { REWRITE_VALIDATOR_OPTIONS } from '@/common/constants/meta.constant';
 import { ValidatorOptions } from '@nestjs/common/interfaces/external/validator-options.interface';
+
+import { REWRITE_VALIDATOR_OPTIONS } from '@/common/constants/meta.constant';
 
 /**
  * 扩展 ValidationPipe，让其支持全局属性重写

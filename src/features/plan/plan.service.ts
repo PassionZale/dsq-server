@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreatePlanDTO, PlanUserDTO } from './dto/create-plan.dto';
+import { CreatePlanDTO } from './dto/create-plan.dto';
 import { UpdatePlanDTO } from './dto/update-plan.dto';
 import { PlanUserEntity } from './entity/plan-user.entity';
 import { PlanEntity } from './entity/plan.entity';
@@ -50,7 +50,7 @@ export class PlanSerivce {
     return await this.planRepository.findOneOrFail({ where: { id } });
   }
 
-  public async insertPlanUser(plan_id: number, users: PlanUserDTO[]) {
+  public async insertPlanUser(plan_id: number, users: number[]) {
     await this.planUserRepository
       .createQueryBuilder()
       .delete()
@@ -62,7 +62,7 @@ export class PlanSerivce {
       .createQueryBuilder()
       .insert()
       .into(PlanUserEntity)
-      .values(users.map((item) => ({ plan_id, ...item })))
+      .values(users.map((item) => ({ plan_id, user_id: item })))
       .execute();
   }
 }
