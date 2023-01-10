@@ -56,10 +56,12 @@ export class CreateUserTable1671782733564 implements MigrationInterface {
               UserType.OWNER,
               UserType.FRONTEND_DEVELOPER,
               UserType.BACKEND_DEVELOPER,
+              UserType.TEST_DEVELOPER,
               UserType.PROJECT_MANAGER,
+              UserType.NONE,
             ],
             default: `'${UserType.NONE}'`,
-            comment: '用户状态',
+            comment: '用户类型',
           },
           {
             name: 'status',

@@ -5,6 +5,7 @@ import { generateReferralCode } from '@/common/helpers/referral-code.helper';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UserEntity } from './user.entity';
 import { ApiException } from '@/core/filters/api-exception.filter';
+import { UpdateUserDTO } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -28,7 +29,7 @@ export class UserService {
 
   public async update(
     id: number,
-    updateUserDTO?: UserEntity,
+    updateUserDTO?: UpdateUserDTO,
   ): Promise<UserEntity> {
     const user = await this.userRepository.preload({
       id,
@@ -46,7 +47,7 @@ export class UserService {
   }
 
   public async findOne(id: number): Promise<UserEntity> {
-    return await this.userRepository.findOneOrFail({ where: { id } });
+    return await this.userRepository.findOne({ where: { id } });
   }
 
   public async findOneWhere(
