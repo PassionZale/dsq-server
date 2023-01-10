@@ -1,4 +1,5 @@
-import { PublicApi } from '@/core/decorators/public-api.decorator';
+import { UserRole } from '@/common/enums/user-role.enum';
+import { Role } from '@/core/decorators/role.decorator';
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UserEntity } from './user.entity';
@@ -8,7 +9,7 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @PublicApi()
+  @Role(UserRole.ADMINISTRATOR)
   @Post()
   public async create(
     @Body() createUserDTO: CreateUserDTO,
