@@ -1,6 +1,7 @@
 import { PlanStatus } from '@/common/enums/plan-status.enum';
 import { PlanLevel } from '@/common/enums/plan-level.enum';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { UserEntity } from '@/features/user/user.entity';
 
 @Entity('plan')
 export class PlanEntity {
@@ -44,4 +45,6 @@ export class PlanEntity {
   // 上线时间
   @Column('datetime', { nullable: true })
   release_at?: Date;
+
+  users?: UserEntity[];
 }
