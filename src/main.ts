@@ -12,9 +12,12 @@ import { HttpExceptionFilter } from './core/filters/http-exception.filter';
 import { TransformInterceptor } from './core/interceptors/transform.interceptor';
 
 import { ApiValidationPipe } from './core/pipes/api-validation.pipe';
+import { PrismaService } from './core/services/prisma.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // **全局 Jwt & Role Guard, 通过 app.module.ts 中的 providers 注入**
 
   // 全局管道验证
   app.useGlobalPipes(
@@ -34,10 +37,11 @@ async function bootstrap() {
   // 全局异常拦截
   app.useGlobalFilters(new AnyExceptionFilter(), new HttpExceptionFilter());
 
-  // 全局 Jwt & Role Guard, 通过 app.module.ts 中的 providers 注入
+  const prismaService: PrismaService = app.get(PrismaService);
+  const appConfigService: AppConfigService = app.get(AppConfigService);
 
-  const appConfig: AppConfigService = app.get(AppConfigService);
-
-  await app.listen(appConfig.port);
+  await prismaService.enableShutdownHooks(app);
+  await app.listen(appConfigService.port);
 }
+
 bootstrap();

@@ -8,9 +8,6 @@ import { TypeormConfigModule } from './configs/typeorm/config.module';
 import { JwtAuthGuard } from './core/guard/jwt-auth.guard';
 import { RoleGuard } from './core/guard/role.guard';
 
-// DATABASE
-import { DatabaseModule } from './database/database.module';
-
 // MODULE
 import { AuthModule } from './features/auth/auth.module';
 import { PlanModule } from './features/plan/plan.module';
@@ -21,8 +18,6 @@ import { UserModule } from './features/user/user.module';
     AppConfigModule,
     JwtConfigModule,
     TypeormConfigModule,
-
-    DatabaseModule,
 
     AuthModule,
     PlanModule,

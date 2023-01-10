@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { user as UserModel } from '@prisma/client';
 
 import { UserStatus } from '@/common/enums/user-status.enum';
 import { encrypt, verify } from '@/common/helpers/bcrypt.helper';
 import { ApiException } from '@/core/filters/api-exception.filter';
-import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { IJwtAccessToken } from './interface';
 import { LoginDTO } from './dto/login.dto';
@@ -20,7 +20,7 @@ export class AuthService {
   public async validateUserPassword(loginDTO: LoginDTO) {
     const { job_number, password } = loginDTO;
 
-    const user = await this.userService.findOneWhere({ job_number }, true);
+    const user = await this.userService.findOne({ where: { job_number } });
 
     if (user) {
       const { hashed_password, ...rest } = user;
@@ -54,7 +54,7 @@ export class AuthService {
     }
   }
 
-  public async createAccessToken(user: UserEntity): Promise<IJwtAccessToken> {
+  public async createAccessToken(user: UserModel): Promise<IJwtAccessToken> {
     const sub = { user_id: user.id };
 
     return {
@@ -62,16 +62,18 @@ export class AuthService {
     };
   }
 
-  public async validatePayload(id: number): Promise<UserEntity> {
-    return await this.userService.findOne(id);
+  public async validatePayload(id: number): Promise<UserModel> {
+    return await this.userService.findOne({ where: { id } });
   }
 
   public async activateUser(activateUserDTO: ActivateUserDTO) {
     const { referral_code, job_number, password } = activateUserDTO;
 
-    const user = await this.userService.findOneWhere({
-      job_number,
-      referral_code,
+    const user = await this.userService.findOne({
+      where: {
+        job_number,
+        referral_code,
+      },
     });
 
     if (user) {

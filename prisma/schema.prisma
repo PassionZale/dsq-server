@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model plan {
+  id         Int         @id @default(autoincrement())
+  name       String      @db.VarChar(20)
+  desc       String      @db.Text
+  doc        String      @db.Text
+  level      plan_level  @default(LOW)
+  status     plan_status @default(NOT_START)
+  review_at  DateTime?   @db.DateTime(0)
+  test_at    DateTime?   @db.DateTime(0)
+  release_at DateTime?   @db.DateTime(0)
+}
+
+model plan_user {
+  id      Int @id @default(autoincrement())
+  plan_id Int
+  user_id Int
+}
+
+model user {
+  id              Int         @id @default(autoincrement())
+  avatar          String?     @db.VarChar(255)
+  fullname        String      @db.VarChar(20)
+  job_number      Int         @unique(map: "UQ_f00d2d3dd3ca3cc50d148d51fbd")
+  hashed_password String?     @db.VarChar(255)
+  role            Int         @default(2)
+  type            user_type   @default(NONE)
+  status          user_status @default(INACTIVATED)
+  referral_code   String      @db.Char(36)
+  created_at      DateTime    @default(now()) @db.DateTime(0)
+  updated_at      DateTime?   @db.DateTime(0)
+}
+
+enum plan_level {
+  URGENT
+  HIGH
+  MIDDLE
+  LOW
+}
+
+enum plan_status {
+  NOT_START
+  REVIWEING
+  DEVELOPING
+  TESTING
+  RELEASED
+}
+
+enum user_type {
+  OWNER
+  FRONTEND_DEVELOPER
+  BACKEND_DEVELOPER
+  TEST_DEVELOPER
+  PROJECT_MANAGER
+  NONE
+}
+
+enum user_status {
+  ACTIVED
+  FORZEN
+  INACTIVATED
+  LOSED
+}
