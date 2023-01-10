@@ -1,6 +1,7 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 import { UserRole } from '@/common/enums/user-role.enum';
 import { UserStatus } from '@/common/enums/user-status.enum';
+import { UserType } from '@/common/enums/user-type.enum';
 
 export class CreateUserTable1671782733564 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -20,8 +21,7 @@ export class CreateUserTable1671782733564 implements MigrationInterface {
           {
             name: 'avatar',
             type: 'varchar',
-            // 需要使用模板字符包裹 string，否则 sql 会报错，其他 default 同理
-            default: `'media/icons/avatar.jpg'`,
+            isNullable: true,
             comment: '头像',
           },
           {
@@ -44,12 +44,22 @@ export class CreateUserTable1671782733564 implements MigrationInterface {
           },
           {
             name: 'role',
-            // 判断权限使用的是最基本的 RBAC0
-            // user.role > role 权限不足
-            // 所以此处使用 int 来完成这个效果
-            type: 'int',
+            type: 'enum',
+            enum: [UserRole.ADMINISTRATOR, UserRole.DEVELOPER, UserRole.STAFF],
             default: `'${UserRole.STAFF}'`,
             comment: '角色',
+          },
+          {
+            name: 'type',
+            type: 'enum',
+            enum: [
+              UserType.OWNER,
+              UserType.FRONTEND_DEVELOPER,
+              UserType.BACKEND_DEVELOPER,
+              UserType.PROJECT_MANAGER,
+            ],
+            default: `'${UserType.NONE}'`,
+            comment: '用户状态',
           },
           {
             name: 'status',

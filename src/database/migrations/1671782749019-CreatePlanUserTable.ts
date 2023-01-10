@@ -1,5 +1,4 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
-import { PlanUserType } from '@/common/enums/plan-user-type.enum';
 
 export class CreatePlanUserTable1671782749019 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -23,17 +22,6 @@ export class CreatePlanUserTable1671782749019 implements MigrationInterface {
           {
             name: 'user_id',
             type: 'int',
-          },
-          {
-            name: 'user_type',
-            type: 'enum',
-            enum: [
-              PlanUserType.OWNER,
-              PlanUserType.FRONTEND_DEVELOPER,
-              PlanUserType.BACKEND_DEVELOPER,
-              PlanUserType.TEST_DEVELOPER,
-              PlanUserType.PROJECT_MANAGER,
-            ],
           },
         ],
       }),

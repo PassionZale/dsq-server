@@ -9,20 +9,10 @@ import {
 } from 'class-validator';
 import { PlanStatus } from '@/common/enums/plan-status.enum';
 import { PlanLevel } from '@/common/enums/plan-level.enum';
-import { PlanUserType } from '@/common/enums/plan-user-type.enum';
 
 export class PlanUserDTO {
   @IsNumber()
   readonly user_id: number;
-
-  @IsIn([
-    PlanUserType.OWNER,
-    PlanUserType.FRONTEND_DEVELOPER,
-    PlanUserType.BACKEND_DEVELOPER,
-    PlanUserType.TEST_DEVELOPER,
-    PlanUserType.PROJECT_MANAGER,
-  ])
-  readonly user_type: PlanUserType;
 }
 
 export class CreatePlanDTO {

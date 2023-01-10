@@ -5,15 +5,15 @@ export enum UserRole {
   /**
    * 管理员
    */
-  ADMINISTRATOR,
+  ADMINISTRATOR = 'ADMINISTRATOR',
   /**
    * 运营专员
    * 可以进行小程序发布等操作
    */
-  DEVELOPER,
+  DEVELOPER = 'DEVELOPER',
   /**
    * 普通员工（默认）
    * 无权限操作任何
    */
-  STAFF,
+  STAFF = 'STAFF',
 }

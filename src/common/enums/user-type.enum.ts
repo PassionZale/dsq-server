@@ -1,4 +1,4 @@
-export enum PlanUserType {
+export enum UserType {
   /**
    * 项目负责人
    */
@@ -19,4 +19,8 @@ export enum PlanUserType {
    * 产品经理
    */
   PROJECT_MANAGER = 'PROJECT_MANAGER',
+  /**
+   * 无
+   */
+  NONE = 'NONE',
 }

@@ -2,6 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { UserRole } from '@/common/enums/user-role.enum';
 import { UserStatus } from '@/common/enums/user-status.enum';
 import { MediaPathTransformer } from '@/database/database.transformer';
+import { UserType } from '@/common/enums/user-type.enum';
 
 @Entity('user')
 export class UserEntity {
@@ -10,8 +11,8 @@ export class UserEntity {
 
   // 头像
   @Column('varchar', {
-    default: 'media/icons/avatar.jpg',
     transformer: new MediaPathTransformer(),
+    nullable: true,
   })
   avatar: string;
 
@@ -40,6 +41,13 @@ export class UserEntity {
     default: UserStatus.INACTIVATED,
   })
   status: UserStatus;
+
+  // 用户类型
+  @Column('enum', {
+    enum: UserType,
+    default: UserType.NONE,
+  })
+  type: UserType;
 
   // 推荐码(用于激活并初始化密码)
   @Column('char', { length: 36 })
