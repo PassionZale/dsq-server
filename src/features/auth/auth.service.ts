@@ -1,20 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { validate } from 'class-validator';
 
 import { UserStatus } from '@/common/enums/user-status.enum';
 import { encrypt, verify } from '@/common/helpers/bcrypt.helper';
+import { UserRole } from '@/common/enums/user-role.enum';
+import { AppConfigService } from '@/configs/app/config.service';
 import { ApiException } from '@/core/filters/api-exception.filter';
+
 import { UserEntity } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { IJwtAccessToken } from './interface';
 import { LoginDTO } from './dto/login.dto';
-import { ActivateUserDTO } from './dto/activate.dto';
+import { ActivateUserDTO, InitAdminDTO } from './dto/activate.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
+    private readonly appConfigService: AppConfigService,
   ) {}
 
   public async validateUserPassword(loginDTO: LoginDTO) {
@@ -90,5 +95,40 @@ export class AuthService {
     }
 
     throw new ApiException('激活失败');
+  }
+
+  public async createAdministratorByEnv() {
+    const isExsit = await this.userService.findOneWhere({
+      role: UserRole.ADMINISTRATOR,
+    });
+
+    if (isExsit) {
+      throw new ApiException('请勿重复初始化管理员');
+    }
+
+    const initalAdmin = new InitAdminDTO();
+
+    initalAdmin.fullname = this.appConfigService.initial_admin_fullname;
+    initalAdmin.job_number = this.appConfigService.initial_admin_job_number;
+    initalAdmin.password = this.appConfigService.initial_admin_password;
+
+    const errors = await validate(initalAdmin);
+
+    if (errors.length) {
+      throw new ApiException(Object.values(errors[0].constraints)[0]);
+    }
+
+    const user: Pick<
+      UserEntity,
+      'fullname' | 'job_number' | 'hashed_password' | 'status' | 'role'
+    > = {
+      fullname: initalAdmin.fullname,
+      job_number: initalAdmin.job_number,
+      hashed_password: encrypt(initalAdmin.password),
+      status: UserStatus.ACTIVED,
+      role: UserRole.ADMINISTRATOR,
+    };
+
+    return this.userService.create(user);
   }
 }

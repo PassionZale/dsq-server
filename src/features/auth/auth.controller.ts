@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 import { PublicApi } from '@/core/decorators/public-api.decorator';
 import { AuthService } from './auth.service';
@@ -30,5 +30,11 @@ export class AuthController {
     });
 
     return this.authService.createAccessToken(user);
+  }
+
+  @PublicApi()
+  @Get('/initial-administrator-just-once')
+  public async initialAdministratorJustOnce() {
+    return await this.authService.createAdministratorByEnv();
   }
 }
