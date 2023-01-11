@@ -13,7 +13,7 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
   public async create(createUserDTO: CreateUserDTO): Promise<UserModel> {
-    const isExsit = await this.findOne({
+    const isExsit = await this.prisma.user.findUnique({
       where: { job_number: createUserDTO.job_number },
     });
 
@@ -36,7 +36,7 @@ export class UserService {
     id: number,
     updateUserDTO?: UpdateUserDTO,
   ): Promise<UserModel> {
-    const isExsit = await this.findOne({
+    const isExsit = await this.prisma.user.findUnique({
       where: { id },
     });
 
@@ -56,10 +56,11 @@ export class UserService {
     return await this.prisma.user.findMany();
   }
 
-  public async findOne(
-    where: Prisma.userWhereInput | Prisma.userWhereUniqueInput,
-  ): Promise<UserModel> {
-    // TODO
-    return await this.prisma.user.findUnique({ where });
+  public async findUnique(args: Prisma.userFindUniqueArgs): Promise<UserModel> {
+    return await this.prisma.user.findUnique(args);
+  }
+
+  public async findFirst(args: Prisma.userWhereInput): Promise<UserModel> {
+    return await this.prisma.user.findFirst({ where: args });
   }
 }

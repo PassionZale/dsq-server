@@ -5,7 +5,7 @@ import { user as UserModel } from '@prisma/client';
 import { UserStatus } from '@/common/enums/user-status.enum';
 import { encrypt, verify } from '@/common/helpers/bcrypt.helper';
 import { ApiException } from '@/core/filters/api-exception.filter';
-import { UserService } from '../user/user.service';
+import { PrismaService } from '@/core/services/prisma.service';
 import { IJwtAccessToken } from './interface';
 import { LoginDTO } from './dto/login.dto';
 import { ActivateUserDTO } from './dto/activate.dto';
@@ -13,19 +13,21 @@ import { ActivateUserDTO } from './dto/activate.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly userService: UserService,
+    private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
   ) {}
 
   public async validateUserPassword(loginDTO: LoginDTO) {
     const { job_number, password } = loginDTO;
 
-    const user = await this.userService.findOne({ where: { job_number } });
+    const user = await this.prisma.user.findUnique({
+      where: { job_number },
+    });
 
     if (user) {
       const { hashed_password, ...rest } = user;
 
-      await this.validateUserStatus(rest.status);
+      await this.validateUserStatus(rest.status as UserStatus);
 
       if (verify(password, hashed_password)) {
         return rest;
@@ -63,13 +65,13 @@ export class AuthService {
   }
 
   public async validatePayload(id: number): Promise<UserModel> {
-    return await this.userService.findOne({ where: { id } });
+    return await this.prisma.user.findUnique({ where: { id } });
   }
 
   public async activateUser(activateUserDTO: ActivateUserDTO) {
     const { referral_code, job_number, password } = activateUserDTO;
 
-    const user = await this.userService.findOne({
+    const user = await this.prisma.user.findFirst({
       where: {
         job_number,
         referral_code,
@@ -88,7 +90,10 @@ export class AuthService {
       user.hashed_password = encrypt(password);
       user.status = UserStatus.ACTIVED;
 
-      return this.userService.update(user.id, user);
+      return this.prisma.user.update({
+        where: { id: user.id },
+        data: user,
+      });
     }
 
     throw new ApiException('激活失败');
