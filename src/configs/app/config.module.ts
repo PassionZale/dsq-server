@@ -13,6 +13,9 @@ import { AppConfigService } from './config.service';
       validationSchema: Joi.object({
         APP_PORT: Joi.number().default(3300),
         APP_URL: Joi.string().default('http://localhost:3300'),
+        APP_INITIAL_ADMINISTRATOR_FULLNAME: Joi.string(),
+        APP_INITIAL_ADMINISTRATOR_JOB_NUMBER: Joi.number(),
+        APP_INITIAL_ADMINISTRATOR_PASSWORD: Joi.string(),
       }),
     }),
   ],
