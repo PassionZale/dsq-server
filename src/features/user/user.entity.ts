@@ -11,8 +11,8 @@ export class UserEntity {
 
   // 头像
   @Column('varchar', {
-    transformer: new MediaPathTransformer(),
     nullable: true,
+    transformer: new MediaPathTransformer(),
   })
   avatar: string;
 
